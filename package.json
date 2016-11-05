@@ -48,7 +48,8 @@
     "mongoose": "^4.5.7",
     "mongoose-gen": "^2.1.1",
     "mongoose-paginate": "^5.0.0",
-    "query-string": "^4.2.2"
+    "query-string": "^4.2.2",
+    "superlogin": "^0.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

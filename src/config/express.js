@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { log } from 'console';
+import SuperLogin from 'superlogin';
+
 import router from '../routes/main';
 
 const app = express();
@@ -22,8 +24,37 @@ app.disable('x-powered-by');
 // Remove No Cache Control
 app.disable('etag');
 
+const config = {
+  dbServer: {
+    protocol: 'http://',
+    host: 'localhost:5984',
+    user: '',
+    password: '',
+    userDB: 'sl-users',
+    couchAuthDB: '_users'
+  },
+  mailer: {
+    fromEmail: 'gmail.user@gmail.com',
+    options: {
+      service: 'Gmail',
+        auth: {
+          user: 'gmail.user@gmail.com',
+          pass: 'userpass'
+        }
+    }
+  },
+  userDBs: {
+    defaultDBs: {
+      private: ['supertest']
+    }
+  }
+};
+
+const superLogin = new SuperLogin(config);
+
 // Routes
 app.use('/', router);
+app.use('/auth', superLogin.router);
 
 // Error handler
 app.use((error, req, res, next) => {
