@@ -47,13 +47,16 @@ const config = {
     defaultDBs: {
       private: ['supertest']
     }
+  },
+  userModel: {
+    whitelist: ['roles']
   }
 };
 
 const superLogin = new SuperLogin(config);
 
 // Routes
-app.use('/', router);
+app.use('/api', router);
 app.use('/auth', superLogin.router);
 
 // Error handler
